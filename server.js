@@ -4,11 +4,13 @@ var server = require('http').Server(app);
 var io = require('socket.io')(server);
 var path = require('path');
 var Redis = require('ioredis');
+var compress = require('compression');
 
 var pubsub = new Redis();
 var redis = new Redis();
 server.listen(8080);
 
+app.use(compress());
 app.use(express.static(path.join(__dirname, 'static')));
 
 app.get('/hashtags/:hashtag', function (req, res, next) {
@@ -19,7 +21,7 @@ app.get('/hashtags/:hashtag', function (req, res, next) {
 });
 
 app.get('/timeline', function (req, res) {
-  redis.get('timeline').then(function (result) {
+  redis.lrange('ogp:timeline', 0, 1000).then(function (result) {
     res.send(result);
   });
 });
