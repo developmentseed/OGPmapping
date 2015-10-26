@@ -43,7 +43,7 @@ function processRecord (record) {
     // Process buildings
     if (R.contains('building', tags)) {
       pipeline.zincrby('ogp:buildings', 1, user);
-      pipeline.zincrby('ogp:highways', 1, 'total');
+      pipeline.zincrby('ogp:buildings', 1, 'total');
     }
 
     // Process highways
