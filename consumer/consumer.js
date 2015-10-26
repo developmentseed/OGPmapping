@@ -37,11 +37,13 @@ function processRecord (record) {
     // Process buildings
     if (R.contains('building', tags)) {
       pipeline.zincrby('ogp:buildings', 1, user);
+      pipeline.zincrby('ogp:highways', 1, 'total');
     }
 
     // Process highways
     if (R.contains('highway', tags)) {
       pipeline.zincrby('ogp:highways', 1, user);
+      pipeline.zincrby('ogp:highways', 1, 'total');
     }
 
     // Add way to timeline of each user
