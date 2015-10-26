@@ -10,7 +10,7 @@ var map = L.map('map', { zoomControl: false })
     .addLayer(mapboxTiles)
     .setView([18.025966, -5], 2)
     .setMaxBounds([ [89, -180], [-89, 180] ])
-    ;
+    ; 
 
 var geojsonLayer = L.geoJson().addTo(map);
 
@@ -64,6 +64,9 @@ function render (element) {
   geojsonLayer.addData(element);
   map.fitBounds(geojsonLayer.getBounds());
 
+  $('#editor_name').empty();
+  $('#editor_name').append("Contributions from <h1>" + element.properties.user +"</h1>");
+
   currentProgress += 1;
   $('#progress-bar').css('width', (100 * currentProgress / progressBarWidth) + '%');
 
@@ -80,8 +83,10 @@ function fillLeaderboard (hash) {
   $('#leaderboard').empty();
   $.get(root + '/' + hash, function (data) {
     for (var i = 0; i < data.length; i += 2) {
+      var rank = (i/2)+1;
+
       $('#leaderboard').append(
-        '<li>' + data[i] + '-' + data[i + 1] + '</li>'
+        '<li><h1>' + rank+"&middot</h1>  "+ data[i] + '-' + data[i + 1] + '</li>'
       );
     }
   });
@@ -89,12 +94,20 @@ function fillLeaderboard (hash) {
 
 $('#Leaderboard-All').click(function () {
   fillLeaderboard('changes');
+  return $('#leadertitletext').text("LEADERBOARDS");
 });
 
 $('#Leaderboard-Building').click(function () {
   fillLeaderboard('buildings');
+  return $('#leadertitletext').text("BUILDINGS");
 });
 
 $('#Leaderboard-Roads').click(function () {
   fillLeaderboard('highways');
+  return $('#leadertitletext').text("ROADS");
+});
+
+$('#Leaderboard-Rivers').click(function () {
+  fillLeaderboard('rivers');
+  return $('#leadertitletext').text("RIVERS");
 });

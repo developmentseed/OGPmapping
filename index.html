@@ -8,7 +8,7 @@
     <link rel="shortcut icon" href="https://developmentseed.org/assets/graphics/meta/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,700" type="text/css">
-  </head>
+  </head> 
   <body>
     <div id="header">
       <div class= "logo-box">
@@ -32,14 +32,16 @@
     </div>
     <!--   <img src="./images/OSM_Heart.png"></img>-->
     <div id="mapbox">
-      <div id="map"></div>
+      <div id="map">
+        <div id="editor_name"></div>
+      </div>
       <!--     <div id = "logo">
         <a href="https://developmentseed.org/" target="_blank"><img src="./images/logo_horizontal_white.svg"></img></a>
         </div>
       -->  </div>
     <div id="sidebox">
       <div id="leadertitle">
-        <h1>LEADERBOARDS</h1>
+        <h1><div id="leadertitletext">LEADERBOARDS</div></h1>
         <p>
         <div id = "Leaderboard-All" class = "switchicon">
           <i class="fa fa-globe fa-2x"></i>
@@ -50,11 +52,8 @@
         <div id = "Leaderboard-Roads" class = "switchicon">
           <i class="fa fa-road fa-2x"></i>
         </div>
-        <div id = "Leaderboard-Area" class = "switchicon">
-          <i class="fa fa-map-pin fa-2x"></i>
-        </div>
-        <div id = "Leaderboard-Other" class = "switchicon">
-          <i class="fa fa-tree fa-2x"></i>
+        <div id = "Leaderboard-Rivers" class = "switchicon">
+          <img src="./images/river.svg" width="36px" height="36px"></img>
         </div>
       </div>
       <div id="leaderboards">
