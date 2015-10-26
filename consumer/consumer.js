@@ -67,6 +67,7 @@ function processRecord (record) {
 
   // Add num_changes to global count
   pipeline.zincrby('ogp:changes', obj.metadata.num_changes, user);
+  pipeline.zincrby('ogp:changes', obj.metadata.num_changes, 'total');
 
   // Execute pipeline
   pipeline.exec(function (err, results) {
