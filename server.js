@@ -36,7 +36,7 @@ app.get('/highways', function (req, res) {
 // User route
 app.get('/users/:user', function (req, res, next) {
   var user = req.params.user;
-  redis.lrange('ogp:timeline:user' + user, 0, 1000).then(function (result) {
+  redis.lrange('ogp:timeline:' + user, 0, 1000).then(function (result) {
     res.send(result);
   });
 });
