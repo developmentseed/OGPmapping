@@ -1,46 +1,42 @@
 var express = require('express');
 var app = express();
 var server = require('http').Server(app);
-var io = require('socket.io')(server);
+// var io = require('socket.io')(server);
 var path = require('path');
 var Redis = require('ioredis');
 var compress = require('compression');
 
-var pubsub = new Redis();
 var redis = new Redis();
 server.listen(8080);
 
 app.use(compress());
 app.use(express.static(path.join(__dirname, 'static')));
 
-app.get('/hashtags/:hashtag', function (req, res, next) {
-  var hashtag = req.params.hashtag;
-  redis.lrange('hashtags:list:' + decodeURIComponent(hashtag), 0, 100).then(function (result) {
-    res.send(result);
-  });
-});
-
+// Timeline route
 app.get('/timeline', function (req, res) {
   redis.lrange('ogp:timeline', 0, 1000).then(function (result) {
     res.send(result);
   });
 });
 
-io.on('connection', function (socket) {
-  redis.get('timeline').then(function (result) {
-    socket.emit('timeline', result);
+// Buildings route
+app.get('/buildings', function (req, res) {
+  redis.zrevrange('ogp:buildings', 0, 10).then(function (result) {
+    res.send(result);
   });
 });
 
-pubsub.subscribe('hashtagsch', function (err) {
-  if (err) console.log(err);
+// Highways route
+app.get('/highways', function (req, res) {
+  redis.zrevrange('ogp:highways', 0, 10).then(function (result) {
+    res.send(result);
+  });
 });
 
-pubsub.on('message', function (channel, data) {
-  if (channel === 'hashtagsch') {
-    redis.get('timeline').then(function (result) {
-      io.emit('timeline', result);
-    });
-  }
+// User route
+app.get('/users/:user', function (req, res, next) {
+  var user = req.params.user;
+  redis.lrange('ogp:timeline:user' + user, 0, 1000).then(function (result) {
+    res.send(result);
+  });
 });
-
