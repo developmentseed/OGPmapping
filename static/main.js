@@ -1,7 +1,5 @@
 /*global L, $, io, omnivore, tinysort */
-// var root = 'http://ludwig.local:8080';
-var root = ''; 
-
+var root = 'http://45.55.146.128:8080';
 var mapboxTiles = L.tileLayer('https://api.mapbox.com/v4/devseed.07f51987/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZGV2c2VlZCIsImEiOiJnUi1mbkVvIn0.018aLhX0Mb0tdtaT2QNe2Q', {
 //    maxZoom: 2,
     minZoom: 2,
@@ -11,11 +9,10 @@ var mapboxTiles = L.tileLayer('https://api.mapbox.com/v4/devseed.07f51987/{z}/{x
 var map = L.map('map', { zoomControl: false })
     .addLayer(mapboxTiles)
     .setView([18.025966, -5], 2)
-    .setMaxBounds([ [89, -180],[-89, 180] ])
+    .setMaxBounds([ [89, -180], [-89, 180] ])
     ;
 
 // new L.Control.Zoom({ position: 'topright' }).addTo(map);
-var socket = io.connect(root);
 
 var nextTimeline = [];
 var currentTimeline = [];
@@ -23,10 +20,6 @@ var colors = '0,1,2,3,4,5,6,7,8,9,10'.split(',');
 var paused = false;
 var progressBarWidth = 0;
 var currentProgress = 0;
-
-socket.on('timeline', function (timeline) {
-  nextTimeline = JSON.parse(timeline);
-});
 
 function reset () {
   $('#leaderboard').empty();
@@ -204,20 +197,3 @@ function sort () {
     }).bind(null, elm, i), 40);
   });
 }
-
-var hashtagbox = $('#leaderboards');
-var leaderbox = $('#logroll-box');
-
-$('#hashtag-switch').on('click', function () {
-  $('#log-switch').css('background', 'rgba(230, 230, 230, 0.8)');
-  $(this).css('background', 'rgba(255, 255, 255, 0.9');
-  leaderbox.hide();
-  hashtagbox.show();
-});
-
-$('#log-switch').on('click', function () {
-  $('#hashtag-switch').css('background', 'rgba(230, 230, 230, 0.8)');
-  $(this).css('background', 'rgba(255, 255, 255, 0.9');
-  leaderbox.show();
-  hashtagbox.hide();
-});
