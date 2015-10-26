@@ -33,6 +33,14 @@ app.get('/highways', function (req, res) {
   });
 });
 
+
+// Changes route
+app.get('/changes', function (req, res) {
+  redis.zrevrange('ogp:changes', 0, 10).then(function (result) {
+    res.send(result);
+  });
+});
+
 // User route
 app.get('/users/:user', function (req, res, next) {
   var user = req.params.user;
