@@ -108,6 +108,6 @@ $('#Leaderboard-Roads').click(function () {
 });
 
 $('#Leaderboard-Rivers').click(function () {
-  fillLeaderboard('rivers');
+  fillLeaderboard('waterways');
   return $('#leadertitletext').text("RIVERS");
 });
