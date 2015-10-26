@@ -18,6 +18,7 @@
   "license": "BSD-3-Clause",
   "dependencies": {
     "compression": "^1.6.0",
+    "cors": "^2.7.1",
     "express": "^4.13.3",
     "ioredis": "^1.9.0",
     "kinesis-readable": "^0.2.1",
