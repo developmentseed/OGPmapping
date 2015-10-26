@@ -26,13 +26,19 @@ app.get('/buildings', function (req, res) {
   });
 });
 
+// Waterways route
+app.get('/waterways', function (req, res) {
+  redis.zrevrange('ogp:waterways', 0, 10, 'WITHSCORES').then(function (result) {
+    res.send(result);
+  });
+});
+
 // Highways route
 app.get('/highways', function (req, res) {
   redis.zrevrange('ogp:highways', 0, 10, 'WITHSCORES').then(function (result) {
     res.send(result);
   });
 });
-
 
 // Changes route
 app.get('/changes', function (req, res) {

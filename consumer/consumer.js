@@ -52,6 +52,11 @@ function processRecord (record) {
       pipeline.zincrby('ogp:highways', 1, 'total');
     }
 
+    // Process waterways
+    if (R.contains('waterway', tags)) {
+      pipeline.zincrby('ogp:waterways', 1, user);
+      pipeline.zincrby('ogp:waterways', 1, 'total');
+    }
     // Add way to timeline of each user
     pipeline.lpush('ogp:timeline:' + user, JSON.stringify(way));
     pipeline.ltrim('ogp:timeline:' + user, 1000);
