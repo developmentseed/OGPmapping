@@ -5,10 +5,12 @@ var server = require('http').Server(app);
 var path = require('path');
 var Redis = require('ioredis');
 var compress = require('compression');
+var cors = require('cors');
 
 var redis = new Redis();
 server.listen(8080);
 
+app.use(cors());
 app.use(compress());
 app.use(express.static(path.join(__dirname, 'static')));
 

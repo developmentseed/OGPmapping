@@ -33,6 +33,7 @@ function reset () {
 
 $.get(root + '/timeline', function (timeline) {
   nextTimeline = preprocessTimeline(timeline);
+  fillLeaderboard('changes')
   reset();
   $('#spinner').hide();
   setInterval(function () {
@@ -73,3 +74,25 @@ function render (element) {
   }
 }
 
+function fillLeaderboard (hash) {
+  $('#leaderboard').empty();
+  $.get(root + '/' + hash, function (data) {
+    for (var i = 0; i < data.length; i += 2) {
+      $('#leaderboard').append(
+        '<li>' + data[i] + '-' + data[i + 1] + '</li>'
+      );
+    }
+  });
+}
+
+$('#Leaderboard-ALL').click(function () {
+  fillLeaderboard('changes');
+});
+
+$('#Leaderboard-Building').click(function () {
+  fillLeaderboard('buildings');
+});
+
+$('#Leaderboard-Roads').click(function () {
+  fillLeaderboard('highways');
+});
