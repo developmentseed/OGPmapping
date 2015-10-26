@@ -21,7 +21,6 @@ var progressBarWidth = 0;
 var currentProgress = 0;
 
 function reset () {
-  $('#leaderboard').empty();
   $('#logroll').empty();
   $('#progress-bar').css('width', '0%');
 
@@ -33,7 +32,7 @@ function reset () {
 
 $.get(root + '/timeline', function (timeline) {
   nextTimeline = preprocessTimeline(timeline);
-  fillLeaderboard('changes')
+  fillLeaderboard('changes');
   reset();
   $('#spinner').hide();
   setInterval(function () {
@@ -48,7 +47,10 @@ function render (element) {
     paused = true;
     setTimeout(function () {
       paused = false;
-      reset();
+      $.get(root + '/timeline', function (timeline) {
+        nextTimeline = preprocessTimeline(timeline);
+        reset();
+      });
     }, 3000);
     return;
   }
@@ -85,7 +87,7 @@ function fillLeaderboard (hash) {
   });
 }
 
-$('#Leaderboard-ALL').click(function () {
+$('#Leaderboard-All').click(function () {
   fillLeaderboard('changes');
 });
 
