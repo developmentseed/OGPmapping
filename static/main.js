@@ -29,7 +29,6 @@ function reset () {
   progressBarWidth = currentTimeline.length;
   currentTimeline.unshift('LAST');
   currentProgress = 0;
-
 }
 
 $.get(root + '/timeline', function (timeline) {
@@ -56,7 +55,7 @@ function render (element) {
   var logroll = $('#logroll');
   // var leaderboard = $('#leaderboard');
 
-  var timecode = new Date(Date.parse(element.properties.timestamp));
+  var timecode = new Date(Date.parse(element.properties.created_at));
   var date = timecode.getHours() + ':' + timecode.getMinutes();
   geojsonLayer.clearLayers();
   geojsonLayer.addData(element);
