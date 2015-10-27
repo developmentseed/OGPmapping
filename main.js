@@ -54,18 +54,30 @@ function render (element) {
   }
 
   var logroll = $('#logroll');
-  // var leaderboard = $('#leaderboard');
 
   var timecode = new Date(Date.parse(element.properties.created_at));
   var date = timecode.getHours() + ':' + timecode.getMinutes();
   geojsonLayer.clearLayers();
-  geojsonLayer.addData(element);
-  map.fitBounds(geojsonLayer.getBounds());
-  if (map.getZoom() > 16) {
-    map.setZoom(16);
-    console.log('away we go!');
+  console.log(element);
+  if (element.features.length) {
+    geojsonLayer.addData(element);
+  } else {
+    var meta = element.properties;
+    geojsonLayer.addData({
+      'type': 'Feature',
+      'geometry': {
+        'type': 'Polygon',
+        'coordinates': [[
+          [meta.min_lon, meta.min_lat],
+          [meta.max_lon, meta.min_lat],
+          [meta.max_lon, meta.max_lat],
+          [meta.min_lon, meta.max_lat],
+          [meta.min_lon, meta.min_lat]
+        ]]
+      }
+    });
   }
-
+  map.fitBounds(geojsonLayer.getBounds(), {maxZoom: 16});
   $('#editor_name').empty();
   $('#editor_name').append('Contributions from <h1>' + element.properties.user + '</h1>');
 
@@ -101,8 +113,13 @@ function fillLeaderboard (hash) {
         '<li><h1>' + rank + '.</h1>  ' + username + ' <i>' + data[i + 1] + '</i></li>'
       );
     }
+    var total = 0;
+    if (data.length) {
+      total = data[1];
+    }
+
     $('#Total').append(
-      '<li><h1>Total Contributions:</h1><i> ' + data[1] + '</i></li>'
+      '<li><h1>Total Contributions:</h1><i> ' + total + '</i></li>'
     );
   });
 
