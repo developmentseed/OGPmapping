@@ -86,7 +86,7 @@ body {
 .Title-box{
   position:absolute;
   float: right;
-  left: 20%;
+  left: 14%;
   top: 30px;
   width: 80%;
   font-size: 2em;
@@ -140,7 +140,7 @@ body {
 }
 
 #sidebox{
-  z-index: 1000;
+  z-index: 1005;
   position: relative;
   float: left;
   background: #fff;
@@ -153,18 +153,20 @@ body {
   overflow: hidden;
 }
 
-#leaderboard h1{
-  font-size: 1em;
+#leaderboards h1{
+  font-size: 1.2vw;
   margin: 0;
   display: inline-block;
-  padding-left: 20px;
+  padding-left: 10px;
 }
-
 
 #leaderboards {
   position: relative;
-  z-index: 1000;
-  color: #000;  
+  z-index: 1005;
+  color: #000;
+  list-style-type: none;
+  padding: 0px;
+  margin: 0px;
 }
 
 #leadertitle{
@@ -200,8 +202,7 @@ body {
 }
 
 .switchicon:hover{
-  color: #29846a;
-  background-color: #b3e2d5;
+  background-color: #a3efad;
 }
 
 .switchicon i{
@@ -225,7 +226,7 @@ body {
 
 #editor_name{
   top: 20px;
-  left: 20px;
+  right: 20px;
   padding: 2px 10px 2px 10px;
   background-color: rgba(255,255,255,0.8);
   border-radius: 10px;
@@ -280,10 +281,17 @@ body {
   overflow: hidden;
 }
 
+#leaderboard i{
+  float: right;
+  padding-right: 10px;
+}
+
 ul#leaderboard li {
   transition: top 500ms;
   -webkit-transition: top 500ms;
   list-style-type: none;
+  font-size: 1.2em;
+  font-size: 1.2vw;
   height: 30px;
   line-height: 30px;
   border-bottom-color: rgba(255, 255, 255, 0.1);
@@ -291,6 +299,13 @@ ul#leaderboard li {
   border-bottom-style: solid;
   padding: 3px;
   width: 100%;
+}
+
+#Total i{
+  font-size: 1.2em;
+  font-size: 1.2vw;
+  padding-right: 10px;
+  float: right;
 }
 
 .linebreak{
@@ -369,6 +384,27 @@ ul#leaderboard li {
 
 .leaflet-container{
     background-color: black;
+}
+
+#map-footer{
+  background: black;
+  width: 100%;
+  height: 20px;
+  z-index: 1002;
+  position: absolute;
+  bottom: 0;
+  color: #00cc99;
+}
+
+#map-footer p{
+  text-align: right;
+  padding: 1px 5px 0 0;
+  margin: 0;
+}
+
+#map-footer a{
+  color: #a3efad;
+  text-decoration: none;
 }
 
 body{
