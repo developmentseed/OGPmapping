@@ -56,8 +56,13 @@ function render (element) {
   var logroll = $('#logroll');
 
   var timecode = new Date(Date.parse(element.properties.created_at));
-  var date = timecode.getHours() + ':' + timecode.getMinutes();
-  geojsonLayer.clearLayers();
+  var minutefix = timecode.getMinutes();
+
+  if(minutefix < 10){
+    minutefix = "0" + minutefix;
+  };
+
+  var date = timecode.getHours() + ':' + minutefix;  geojsonLayer.clearLayers();
   console.log(element);
   if (element.features.length) {
     geojsonLayer.addData(element);
